@@ -838,6 +838,8 @@ int main(int argc, char *argv[]) {
 
         char *dir = realpath(appimage_path, NULL );
 
+        fprintf(stderr, "UID=%d\n", current_uid);
+
         char options[100];
         sprintf(options, "ro,offset=%lu%s", fs_offset, (current_uid == 0) ? ",allow_other" : ",allow_root");
 
