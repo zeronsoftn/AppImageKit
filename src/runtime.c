@@ -829,6 +829,7 @@ int main(int argc, char *argv[]) {
 
     if (pid == 0) {
         /* in child */
+        uid_t current_uid = getuid();
 
         char *child_argv[5];
 
@@ -838,7 +839,7 @@ int main(int argc, char *argv[]) {
         char *dir = realpath(appimage_path, NULL );
 
         char options[100];
-        sprintf(options, "ro,offset=%lu", fs_offset);
+        sprintf(options, "ro,offset=%lu%s", fs_offset, (current_uid == 0) ? ",allow_other" : "");
 
         child_argv[0] = dir;
         child_argv[1] = "-o";
